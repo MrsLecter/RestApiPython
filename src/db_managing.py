@@ -61,7 +61,7 @@ def getItems(table_name, item_name='none'):
                     f"select * from artists where artist_name='{item_name}'")
             print(cur.rowcount)
         elif table_name == 'songs':
-            if item_name== 'none':
+            if item_name == 'none':
                 cur.execute("SELECT * FROM songs ORDER BY song_name")
             else:
                 cur.execute(
@@ -317,6 +317,7 @@ def getSongsForAlbumsForArtist(album_name, artist_name):
             conn.close()
     return requested_data
 
+
 def getCurrentSongForArtist(artist_name, song_name):
     requested_data = []
     conn = None
@@ -377,53 +378,3 @@ def getCurrentTextSongForArtist(artist_name, song_name):
         if conn is not None:
             conn.close()
     return requested_data
-
-
-
-# if __name__ == '__m
-# ain__':
-    # print(getSongsForAlbumsForArtist('Meddle', 'Nick Mason'))
-    # print(getAlbumsForArtist('Nick Mason'))
-    # print(getSongsForArtist('Nick Mason'))
-    # print(getItems('albums'))
-    # print(getItems('artists'))
-    # print(strget, type(strget))
-    # print(deleteItem('artists', 13))
-    # print(searchItems('artists', 'John Lennon'))
-    # updateItem('artists', {'name': 'Eric Clapton', 'info': 'songwriter, widely regarded as one of the most important and influential guitarists of all time', 'id': 13})
-# insert into artists values(DEFAULT, 'Jimi Hendrix','one of the most influential electric guitarists in the history of popular music')
-'''artists/nick_mason/songs
-select distinct song_name, song_text, song_year, original_lang from songs
-join artist_song_album
-on songs.song_id = artist_song_album.song_id
-join artists
-on artist_song_album.album_id = artists.artist_id
-where artists.artist_name = 'Nick Mason'
-'''
-
-'''artists/nick_mason/songs/haveacigar
-select distinct song_name, song_text, song_year, original_lang from songs
-join artist_song_album
-on songs.song_id = artist_song_album.song_id
-join artists
-on artist_song_album.album_id = artists.artist_id
-where artists.artist_name = 'Nick Mason' and songs.song_name='Have a Cigar'
-'''
-
-'''artists/nick_mason/albums
-select distinct album_name, album_year, album_info from albums
-join artist_song_album
-on albums.album_id = artist_song_album.album_id
-join artists
-on artist_song_album.artist_id = artists.artist_id
-where artists.artist_name = 'Nick Mason'
-'''
-
-'''artists/nick_mason/albums/Meddle
-select distinct album_name, album_year, album_info from albums
-join artist_song_album
-on albums.album_id = artist_song_album.album_id
-join artists
-on artist_song_album.artist_id = artists.artist_id
-where artists.artist_name = 'Nick Mason' and albums.album_name = 'Meddle'
-'''

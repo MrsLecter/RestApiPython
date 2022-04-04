@@ -60,6 +60,7 @@ class AllSongsPage:
             <p>[<a href="../../">Go back</a>]</p>
             <p>[<a href="../">Return home</a>]</p>"""
 
+
     # /artist/<artist>/song/<song>
     @cherrypy.expose
     def currentsong(self, current, currentsong):
@@ -77,6 +78,7 @@ class AllSongsPage:
                 <p>[<a href="../artist/current/songs/>Go to all songs</a>]</p>''
                 <p>[<a href="../">Return home</a>]</p>"""
 
+
 class AllAlbumsPage:
     @cherrypy.expose
     def albums(self, current):
@@ -91,6 +93,7 @@ class AllAlbumsPage:
             <p>[<a href="../../../artist/">Go to all artist page</a>]</p>
             <p>[<a href="../../../artist/current/">Go to current artist page</a>]</p>
             <p>[<a href="../">Return home</a>]</p>"""
+
 
     # /artist/<artist>/song/<song>
     @cherrypy.expose
