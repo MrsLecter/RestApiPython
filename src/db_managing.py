@@ -61,7 +61,7 @@ def getItems(table_name, item_name='none'):
                     f"select * from artists where artist_name='{item_name}'")
             print(cur.rowcount)
         elif table_name == 'songs':
-            if item_name == 'none':
+            if item_name== 'none':
                 cur.execute("SELECT * FROM songs ORDER BY song_name")
             else:
                 cur.execute(
@@ -317,7 +317,6 @@ def getSongsForAlbumsForArtist(album_name, artist_name):
             conn.close()
     return requested_data
 
-
 def getCurrentSongForArtist(artist_name, song_name):
     requested_data = []
     conn = None
@@ -378,3 +377,5 @@ def getCurrentTextSongForArtist(artist_name, song_name):
         if conn is not None:
             conn.close()
     return requested_data
+
+

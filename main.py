@@ -5,7 +5,7 @@ from src import controller
 
 # way for pages and classes
 root = controller.Router()
-root.search_apge = controller.SearchPage()
+root.search_page = controller.SearchPage()
 root.artists_page = controller.ArtistsPage()
 root.artists_page.all_songs_page = controller.AllSongsPage()
 root.all_songs_page = controller.AllSongsPage()

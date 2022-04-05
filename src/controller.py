@@ -60,7 +60,6 @@ class AllSongsPage:
             <p>[<a href="../../">Go back</a>]</p>
             <p>[<a href="../">Return home</a>]</p>"""
 
-
     # /artist/<artist>/song/<song>
     @cherrypy.expose
     def currentsong(self, current, currentsong):
@@ -78,7 +77,6 @@ class AllSongsPage:
                 <p>[<a href="../artist/current/songs/>Go to all songs</a>]</p>''
                 <p>[<a href="../">Return home</a>]</p>"""
 
-
 class AllAlbumsPage:
     @cherrypy.expose
     def albums(self, current):
@@ -94,7 +92,6 @@ class AllAlbumsPage:
             <p>[<a href="../../../artist/current/">Go to current artist page</a>]</p>
             <p>[<a href="../">Return home</a>]</p>"""
 
-
     # /artist/<artist>/song/<song>
     @cherrypy.expose
     def currentalbum(self,current, currentalbum):
@@ -104,6 +101,7 @@ class AllAlbumsPage:
                 <p>"This is a list of current song current artist"</p>
                 <p>{JSONconverter.getJSONFromList(db_managing.getCurrentAlbumForAlbumsForArtist(current, currentalbum))}
                 <p>You are here --> '/artist/current/song' </p>
+                
                 <hr>  
                 <p>[<a href="../../../artist/">Go to all artist page</a>]</p>
                 <p>[<a href="../../../artist/current/">Go to current artist page</a>]</p>
@@ -113,31 +111,15 @@ class AllAlbumsPage:
 
 class SearchPage:
     @cherrypy.expose
-    def index(self):
+    def index(self, item, table):
         return f"""
             <p>Search page</p>
             <hr>
-            <p>/input here/</p>
+            <p>/item = {item}, table = {table}/</p>
             <p>You are here --> '/search/' </p>
-            <p>Maybe you want to search <u>['item_name']</u> in <u>[table_name]</u> storage?</p>
-            <p>[<a href="/search/John%20Lennon%20artists">Go to search <u>['John Lennon']</u> in <u>[artists]</u> storage</a>]</p>
-            <p>[<a href="/search/Revolver%20albums">Go to search <u>['Revolver']</u> in <u>[albums]</u> storage</a>]</p>
-            <p>[<a href="/search/Echoes%20songs">Go to search <u>['Echoes']</u> in <u>[songs]</u> storage</a>]</p>
+            <p>Maybe you want to search <u>['{item}']</u> in <u>[{table}]</u> storage?</p>
+            <p>{JSONconverter.getJSONFromList(db_managing.searchItems(table, item))}
             <hr>
-            <p>[<a href="../">Return home</a>]</p>"""
-
-
-    # /artist/<artist>
-    @cherrypy.expose
-    def searchable(self, searchable):
-        return f"""
-            <p>Search page</p>
-            <hr>
-            <p>You looking for {searchable.split(' ')[len(searchable.split(' '))-2]} in {searchable.split(' ')[len(searchable.split(' '))-1]}</p>
-            <p>Search result: </p>
-            <p>{JSONconverter.getJSONFromList(db_managing.searchItems(searchable.split(' ')[len(searchable.split(' '))-1], searchable.split(' ')[len(searchable.split(' '))-2]))}</p>         
-            <hr>
-            <p>[<a href="../search/">Go to search page</a>]</p>
             <p>[<a href="../">Return home</a>]</p>"""
 
 
@@ -159,22 +141,23 @@ class Router:
             <p>You are here --> '/' </p>
             <ul>
                 <li><a href="/artist">Show all artist</a></li>
-                <li><a href="/search">Show search page</a></li>
-            </ul>"""
+            </ul>
+            <br>
+                <p>Need a search?</p>
+                <p>[<a href="/search?item=John%20Lennon&table=artists">Find John Lennon info</a>]</p>
+                <p>[<a href="/search?item=Revolver&table=albums">Find 'Revolver' album</a>]</p>
+                <p>[<a href="/search?item=Echoes&table=songs">Find 'Echoes' song</a>]</p>
+            """
 
     def _cp_dispatch(self, vpath):
-        if len(vpath) == 1:
-            if vpath[0] == 'search':
-                return self.search_page
-            elif vpath[0] == 'artist':
+        if len(vpath) == 1:  
+            if vpath[0] == 'artist':
                 return self.artists_page
-        elif len(vpath) == 2:
-            print('2 vpath', vpath)
-            if vpath[0] == 'search':
+            elif vpath[0] == 'search':
                 vpath.pop(0)
-                cherrypy.request.params['searchable'] = vpath.pop(0)
-                return self.search_page.searchable
-            elif vpath[0] == 'artist':
+                return self.search_page
+        elif len(vpath) == 2:
+            if vpath[0] == 'artist':
                 vpath.pop(0)
                 cherrypy.request.params['current'] = vpath.pop(0)
                 return self.artists_page.current

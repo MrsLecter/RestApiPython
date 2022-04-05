@@ -8,4 +8,3 @@ def getTranslation(source_text, source_lang, target_lang):
     translated = GoogleTranslator(source=(source_lang.lower()), target=(
         target_lang.lower())).translate(text=text)
     return translated
-
