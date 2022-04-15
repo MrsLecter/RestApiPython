@@ -17,13 +17,14 @@ Simple REST API
 
 ## API path
 
-* **GET** '/artist' or '/artist/${artistName}' returns all atrists or artist with the required 'artistName';
-          'artist/{artistName}/song' returns all songs for current artist;
-          'artist/{artistName}/song/${songName}' returns required 'songName' for current 'artistName';
-          'artist/{artistName}/album' returns all albums for current 'artistName';
-          'artist/{artistName}/album/${albumName}' returns required 'albumName' for current 'artistName';
-          'artist/{artistName}/album/${albumName}/${songName} returns required 'songName' for current 'albumName' for current 'artistName';
-          'search?item=${itemName}&table={tableName}' returns required 'itemName'(artist, song, album) for current 'tableName'
+* **GET** 
+* '/artist' or '/artist/${artistName}' returns all atrists or artist with the required 'artistName';
+* 'artist/{artistName}/song' returns all songs for current artist;
+* 'artist/{artistName}/song/${songName}' returns required 'songName' for current 'artistName';
+* 'artist/{artistName}/album' returns all albums for current 'artistName';
+* 'artist/{artistName}/album/${albumName}' returns required 'albumName' for current 'artistName';
+* 'artist/{artistName}/album/${albumName}/${songName} returns required 'songName' for current 'albumName' for current 'artistName';
+* 'search?item=${itemName}&table={tableName}' returns required 'itemName'(artist, song, album) for current 'tableName'
 
 
 ## Artists and Songs are stored as objects that have following properties:
